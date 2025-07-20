@@ -1,0 +1,29 @@
+package com.example.todo_api.Service;
+
+import com.example.todo_api.Entitiy.UserApp;
+import com.example.todo_api.payload.UserRequest;
+import com.example.todo_api.payload.UserRequestMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthService {
+    @Autowired
+    private AuthenticationManager authenticationManger;
+    @Autowired
+    JWTService jwtService;
+    @Autowired
+    UserRequestMapper userRequestMapper;
+
+    public String verify(UserRequest userRequest) {
+        UserApp user=userRequestMapper.map(userRequest);
+        Authentication authentication= authenticationManger.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getusername(),user.getPassword()));
+        if(authentication.isAuthenticated())
+            return jwtService.generateToken(user.getusername());
+        return "this user is not exist";
+    }
+}
