@@ -2,13 +2,15 @@ package com.example.todo_api.Entitiy;
 
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 
 @Entity
 @Table(name="todo")
 public class ToDo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
     private String title;
     private String Description;
     private boolean isCompleted;
@@ -20,7 +22,7 @@ public class ToDo {
 
     }
 
-    public ToDo(long id, String title, String description, boolean isCompleted, UserApp user) {
+    public ToDo(UUID id, String title, String description, boolean isCompleted, UserApp user) {
         this.id = id;
         this.title = title;
         Description = description;
@@ -28,10 +30,10 @@ public class ToDo {
         this.user = user;
     }
 
-    public ToDo(long id, String title, String description, boolean isCompleted) {
+    public ToDo(UUID id, String title, String description, boolean isCompleted) {
         this.id = id;
         this.title = title;
-        this.Description = description;
+        Description = description;
         this.isCompleted = isCompleted;
     }
 
@@ -42,8 +44,12 @@ public class ToDo {
         this.user = user;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getTitle() {

@@ -11,7 +11,7 @@ public class UserRequest {
     @NotBlank
     @Length(min=3)
     private String username;
-//    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
     private String Password;
 
     public UserRequest() {

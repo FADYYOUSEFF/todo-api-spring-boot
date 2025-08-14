@@ -1,13 +1,12 @@
 package com.example.todo_api.Service;
 
 import com.example.todo_api.Config.PasswordConfig;
-import com.example.todo_api.Dto.UserDto;
-import com.example.todo_api.Dto.UserMapper;
+import com.example.todo_api.response.UserResponse;
+import com.example.todo_api.response.UserMapper;
 import com.example.todo_api.Entitiy.UserApp;
 import com.example.todo_api.Entitiy.UserPrinciple;
 import com.example.todo_api.Exception.ExceptionMessage;
 import com.example.todo_api.Exception.RecordDublicatedException;
-import com.example.todo_api.Exception.RecordNotFoundException;
 import com.example.todo_api.Exception.UserNotFoundException;
 import com.example.todo_api.Repository.UserAppRpo;
 import com.example.todo_api.payload.UserRequest;
@@ -30,7 +29,7 @@ public class AppUserService implements UserDetailsService {
     @Autowired
     UserRequestMapper userRequestMapper;
 
-    public UserDto saveUser(UserRequest userRequest) {
+    public UserResponse saveUser(UserRequest userRequest) {
         UserApp userApp = userRequestMapper.map(userRequest);
         boolean isUserNameExist=userAppRpo.findByUsername(userApp.getusername()).isPresent();
         if(isUserNameExist){

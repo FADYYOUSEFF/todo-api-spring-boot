@@ -1,7 +1,7 @@
 package com.example.todo_api.Service;
 
-import com.example.todo_api.Dto.TodoDto;
-import com.example.todo_api.Dto.TodoMapper;
+import com.example.todo_api.response.TodoResponse;
+import com.example.todo_api.response.TodoMapper;
 import com.example.todo_api.Entitiy.ToDo;
 import com.example.todo_api.Entitiy.UserApp;
 import com.example.todo_api.Exception.ExceptionMessage;
@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class TodoService {
@@ -26,7 +27,7 @@ public class TodoService {
     @Autowired
     TodoRequestMapper todoRequestMapper;
 
-    public TodoDto addTodo(TodoRequest todoRequest) {
+    public TodoResponse addTodo(TodoRequest todoRequest) {
         ToDo todo=todoRequestMapper.map(todoRequest);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         UserApp userApp = appUserService.findByUsername(username);
@@ -40,11 +41,11 @@ public class TodoService {
     }
 
 
-    public ToDo getTodoById(long id) {
+    public ToDo getTodoById(UUID id) {
         return todoRepo.findById(id).orElseThrow(() -> new RecordNotFoundException(ExceptionMessage.RECORD_NOT_FOUND));
     }
 
-    public TodoDto updateTodo(Long id,TodoRequest todoRequest) {
+    public TodoResponse updateTodo(UUID id, TodoRequest todoRequest) {
         ToDo todo=todoRequestMapper.map(todoRequest);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         ToDo todoToBeUpdated = this.getTodoById(id);
@@ -59,7 +60,7 @@ public class TodoService {
         return todoMapper.map(todoToBeUpdated);
     }
 
-    public TodoDto deleteTodo(long id) {
+    public TodoResponse deleteTodo(UUID id) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         ToDo todo = this.getTodoById(id);
         if (todo == null || !todo.getUser().getusername().equals(username)) {
@@ -69,7 +70,7 @@ public class TodoService {
         return todoMapper.map(todo);
     }
 
-    public List<TodoDto> getTodos() {
+    public List<TodoResponse> getTodos() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         UserApp userApp = appUserService.findByUsername(username);
         List<ToDo> toDos = todoRepo.findTodoByUserId(userApp.getId());

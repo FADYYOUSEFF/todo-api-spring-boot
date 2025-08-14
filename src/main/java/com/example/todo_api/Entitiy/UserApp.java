@@ -3,12 +3,13 @@ package com.example.todo_api.Entitiy;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class UserApp {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
     private String username;
     private String Password;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)// mapped by means that the relation user is the owner of that key
@@ -16,7 +17,7 @@ public class UserApp {
 
     public UserApp(){}
 
-    public UserApp(Long id, String username, String password) {
+    public UserApp(UUID id, String username, String password) {
         this.id = id;
         this.username = username;
         Password = password;
@@ -27,8 +28,12 @@ public class UserApp {
         Password = password;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getusername() {

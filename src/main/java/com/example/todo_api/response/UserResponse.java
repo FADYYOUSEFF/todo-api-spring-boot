@@ -2,13 +2,13 @@ package com.example.todo_api.response;
 
 import java.util.UUID;
 
-public class UserDto {
+public class UserResponse {
     private UUID id;
     private String username;
 
-    public UserDto(){}
+    public UserResponse(){}
 
-    public UserDto(UUID id, String username) {
+    public UserResponse(UUID id, String username) {
         this.id = id;
         this.username = username;
     }

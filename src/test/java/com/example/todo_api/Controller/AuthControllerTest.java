@@ -1,6 +1,6 @@
 package com.example.todo_api.Controller;
 
-import com.example.todo_api.Dto.UserDto;
+import com.example.todo_api.response.UserResponse;
 import com.example.todo_api.Service.AppUserService;
 import com.example.todo_api.Service.AuthService;
 import com.example.todo_api.payload.UserRequest;
@@ -16,6 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+
+import java.util.UUID;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
@@ -65,14 +67,14 @@ class AuthControllerTest {
     @Test
     void register() throws Exception{
         UserRequest userRequest=new UserRequest("username","password");
-        UserDto userDto=new UserDto(1L,userRequest.getUsername());
+        UserResponse userResponse =new UserResponse(UUID.randomUUID(),userRequest.getUsername());
 
-        when(appUserService.saveUser(any(UserRequest.class))).thenReturn(userDto);
+        when(appUserService.saveUser(any(UserRequest.class))).thenReturn(userResponse);
 
         ResultActions response= mockMvc.perform(post("/auth/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(userRequest)));
 
         response.andExpect(status().isCreated())
-                .andExpect(content().string(objectMapper.writeValueAsString(userDto)));    }
+                .andExpect(content().string(objectMapper.writeValueAsString(userResponse)));    }
 }

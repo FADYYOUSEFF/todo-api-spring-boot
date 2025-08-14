@@ -2,15 +2,15 @@ package com.example.todo_api.response;
 
 import java.util.UUID;
 
-public class TodoDto {
+public class TodoResponse {
     private UUID id;
     private String title;
     private String Description;
     private boolean isCompleted;
 
-    public TodoDto(){}
+    public TodoResponse(){}
 
-    public TodoDto(UUID id, String title, String description, boolean isCompleted) {
+    public TodoResponse(UUID id, String title, String description, boolean isCompleted) {
         this.id = id;
         this.title = title;
         Description = description;

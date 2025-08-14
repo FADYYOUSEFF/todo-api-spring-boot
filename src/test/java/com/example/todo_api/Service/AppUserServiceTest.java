@@ -1,8 +1,8 @@
 package com.example.todo_api.Service;
 
 import com.example.todo_api.Config.PasswordConfig;
-import com.example.todo_api.Dto.UserDto;
-import com.example.todo_api.Dto.UserMapper;
+import com.example.todo_api.response.UserResponse;
+import com.example.todo_api.response.UserMapper;
 import com.example.todo_api.Entitiy.UserApp;
 import com.example.todo_api.Exception.ExceptionMessage;
 import com.example.todo_api.Exception.RecordDublicatedException;
@@ -61,12 +61,12 @@ class AppUserServiceTest {
         when(passwordConfig.passwordEncoder()).thenReturn(passwordEncoder);
         when(passwordEncoder.encode(user.getPassword())).thenReturn("password-encoded");
         when(userAppRpo.save(user)).thenReturn(user);
-        when(userMapper.map(user)).thenReturn(new UserDto(user.getId(),user.getusername()));
+        when(userMapper.map(user)).thenReturn(new UserResponse(user.getId(),user.getusername()));
 
-        UserDto userDto=appUserService.saveUser(userRequest);
+        UserResponse userResponse =appUserService.saveUser(userRequest);
 
-        Assertions.assertThat(userDto).isNotNull();
-        Assertions.assertThat(userDto.getUsername()).isEqualTo(userRequest.getUsername());
+        Assertions.assertThat(userResponse).isNotNull();
+        Assertions.assertThat(userResponse.getUsername()).isEqualTo(userRequest.getUsername());
     }
 
     @Test
