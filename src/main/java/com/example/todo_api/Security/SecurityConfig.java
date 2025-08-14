@@ -33,7 +33,11 @@ public class SecurityConfig {
         return http.csrf(customizer -> customizer.disable()).
                 authorizeHttpRequests(
                         request -> request
-                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/auth/**",
+                                        "/v3/api-docs/**",    // OpenAPI documentation JSON
+                                        "/swagger-ui/**",     // Swagger UI resources
+                                        "/swagger-ui.html"    // Main Swagger UI page
+                                ).permitAll()
                                 .anyRequest().authenticated()).
                 httpBasic(Customizer.withDefaults()).
                 sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

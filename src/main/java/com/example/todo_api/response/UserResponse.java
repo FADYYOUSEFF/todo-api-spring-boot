@@ -1,21 +1,23 @@
-package com.example.todo_api.Dto;
+package com.example.todo_api.response;
+
+import java.util.UUID;
 
 public class UserDto {
-    private Long id;
+    private UUID id;
     private String username;
 
     public UserDto(){}
 
-    public UserDto(Long id, String username) {
+    public UserDto(UUID id, String username) {
         this.id = id;
         this.username = username;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

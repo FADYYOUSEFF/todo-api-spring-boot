@@ -1,25 +1,27 @@
-package com.example.todo_api.Dto;
+package com.example.todo_api.response;
+
+import java.util.UUID;
 
 public class TodoDto {
-    private long id;
+    private UUID id;
     private String title;
     private String Description;
     private boolean isCompleted;
 
     public TodoDto(){}
 
-    public TodoDto(long id, String title, String description, boolean isCompleted) {
+    public TodoDto(UUID id, String title, String description, boolean isCompleted) {
         this.id = id;
         this.title = title;
         Description = description;
         this.isCompleted = isCompleted;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
