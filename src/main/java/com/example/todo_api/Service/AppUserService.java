@@ -20,14 +20,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AppUserService implements UserDetailsService {
-    @Autowired
-    UserAppRpo userAppRpo;
-    @Autowired
-    PasswordConfig passwordConfig;
-    @Autowired
-    UserMapper userMapper;
-    @Autowired
-    UserRequestMapper userRequestMapper;
+    private final UserAppRpo userAppRpo;
+    private final PasswordConfig passwordConfig;
+    private final UserMapper userMapper;
+    private final UserRequestMapper userRequestMapper;
+
+    public AppUserService(UserAppRpo userAppRpo, PasswordConfig passwordConfig, UserMapper userMapper, UserRequestMapper userRequestMapper) {
+        this.userAppRpo = userAppRpo;
+        this.passwordConfig = passwordConfig;
+        this.userMapper = userMapper;
+        this.userRequestMapper = userRequestMapper;
+    }
 
     public UserResponse saveUser(UserRequest userRequest) {
         UserApp userApp = userRequestMapper.map(userRequest);

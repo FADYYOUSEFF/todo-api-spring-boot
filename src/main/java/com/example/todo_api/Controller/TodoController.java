@@ -26,10 +26,12 @@ import java.util.UUID;
         description = ": used to manage the process of create, delete, update, and get todos for the each user individually"
 )
 public class TodoController {
-    @Autowired
-    TodoService todoService;
-    @Autowired
-    AppUserService appUserService;
+
+    private final TodoService todoService;
+
+    public TodoController(TodoService todoService, AppUserService appUserService) {
+        this.todoService = todoService;
+    }
 
     @Operation(
            description = "Get Todos end point for user",
