@@ -13,12 +13,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
-    @Autowired
-    private AuthenticationManager authenticationManger;
-    @Autowired
-    JWTService jwtService;
-    @Autowired
-    UserRequestMapper userRequestMapper;
+    private final AuthenticationManager authenticationManger;
+    private final JWTService jwtService;
+    private final UserRequestMapper userRequestMapper;
+
+    public AuthService(AuthenticationManager authenticationManger, JWTService jwtService, UserRequestMapper userRequestMapper) {
+        this.authenticationManger = authenticationManger;
+        this.jwtService = jwtService;
+        this.userRequestMapper = userRequestMapper;
+    }
 
     public String verify(UserRequest userRequest) {
         UserApp user=userRequestMapper.map(userRequest);

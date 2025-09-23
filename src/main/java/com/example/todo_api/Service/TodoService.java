@@ -18,14 +18,17 @@ import java.util.UUID;
 
 @Service
 public class TodoService {
-    @Autowired
-    TodoRepo todoRepo;
-    @Autowired
-    TodoMapper todoMapper;
-    @Autowired
-    AppUserService appUserService;
-    @Autowired
-    TodoRequestMapper todoRequestMapper;
+    private final TodoRepo todoRepo;
+    private final TodoMapper todoMapper;
+    private final AppUserService appUserService;
+    private final TodoRequestMapper todoRequestMapper;
+
+    public TodoService(TodoRepo todoRepo, TodoMapper todoMapper, AppUserService appUserService, TodoRequestMapper todoRequestMapper) {
+        this.todoRepo = todoRepo;
+        this.todoMapper = todoMapper;
+        this.appUserService = appUserService;
+        this.todoRequestMapper = todoRequestMapper;
+    }
 
     public TodoResponse addTodo(TodoRequest todoRequest) {
         ToDo todo=todoRequestMapper.map(todoRequest);

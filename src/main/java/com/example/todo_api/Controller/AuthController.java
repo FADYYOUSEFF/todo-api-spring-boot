@@ -25,14 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 )
 public class AuthController {
 
-    @Autowired
-    private AppUserService appUserService;
 
-    @Autowired
-    private AuthService authService;
+    private final AppUserService appUserService;
+    private final AuthService authService;
 
-    @Autowired
-    private UserMapper userMapper;
+    public AuthController(AppUserService appUserService, AuthService authService) {
+        this.appUserService = appUserService;
+        this.authService = authService;
+    }
 
     @Operation(
             description = "login user end point",
